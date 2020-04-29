@@ -19,13 +19,14 @@ function sayHello(name) {
 //global.console.log(sum)
 //global.console.log(global.var)
 
-// Loading Logger module
-// In ES6
-//import './logger';
 
-var logger = require('./logger');
+// Loading module
+const logger = require('./logger');
 console.log(logger)
-console.log(logger.urlEndpoint)
-console.log(logger.log("hello"))
+
+//logger.log("Hello");
+logger("Hello") // calling exported function
+
+
 
 
