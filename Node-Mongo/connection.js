@@ -1,6 +1,9 @@
 import mongodb from "mongodb";
 
 import create from "./CRUD/create";
+import readByBedroomBathroom from "./CRUD/read";
+import readByName from "./CRUD/readByDocumentProperties";
+import readMany from "./CRUD/readingMultiple";
 import createMany from "./CRUD/createMany";
 import listDatabase from "./listDatabase";
 
@@ -15,6 +18,19 @@ export default async function makeDb() {
     const c = await client.connect();
     listDatabase(c);
 
+    // Read the documents
+    await readByName(c, { name: "Kings House" });
+    await readMany(c, {
+      bedrooms: { $gte: 2 },
+      bathrooms: { $gte: 2 },
+    });
+
+    await readByBedroomBathroom(c, {
+      minimumNumberOfBedrooms: 2,
+      minimumNumberOfBathrooms: 2,
+      maximumNumberOfResults: 5,
+    });
+
     // Create operation
     // Single document insertion //
     /*
@@ -24,7 +40,7 @@ export default async function makeDb() {
       bedrooms: 2,
       bathrooms: 2,
     });
-    */
+    
 
     // Multiple document insertion //
     await createMany(client, [
@@ -52,6 +68,8 @@ export default async function makeDb() {
         last_review: new Date(),
       },
     ]);
+
+    */
   } catch (e) {
     console.log(e);
   } finally {
