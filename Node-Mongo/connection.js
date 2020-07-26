@@ -9,6 +9,8 @@ import listDatabase from "./listDatabase";
 import updateByName from "./CRUD/updateByName";
 import upsertByName from "./CRUD/upsertListingByName";
 import updateMany from "./CRUD/updateMultiple";
+import deleteListing from "./CRUD/deleteOneByName";
+import deleteMany from "./CRUD/deleteManyBydate";
 
 export default async function makeDb() {
   const MongoClient = mongodb.MongoClient;
@@ -84,6 +86,10 @@ export default async function makeDb() {
     });
     await upsertByName(client, "Cozy Cottage", { beds: 2 });
     await updateMany(c);
+
+    // Deletion //
+    await deleteListing(client, "Cozy Cottage");
+    await deleteMany(client, new Date("2019-02-15"));
   } catch (e) {
     console.log(e);
   } finally {
