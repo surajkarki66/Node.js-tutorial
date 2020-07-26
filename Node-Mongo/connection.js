@@ -6,6 +6,9 @@ import readByName from "./CRUD/readByDocumentProperties";
 import readMany from "./CRUD/readingMultiple";
 import createMany from "./CRUD/createMany";
 import listDatabase from "./listDatabase";
+import updateByName from "./CRUD/updateByName";
+import upsertByName from "./CRUD/upsertListingByName";
+import updateMany from "./CRUD/updateMultiple";
 
 export default async function makeDb() {
   const MongoClient = mongodb.MongoClient;
@@ -68,8 +71,19 @@ export default async function makeDb() {
         last_review: new Date(),
       },
     ]);
+    
 
     */
+
+    // Updation //
+    await updateByName(c, "Kings House", { bedrooms: 6, beds: 8 });
+    await upsertByName(c, "Cozy Cottage", {
+      name: "Cozy Cottage",
+      bedrooms: 2,
+      bathrooms: 1,
+    });
+    await upsertByName(client, "Cozy Cottage", { beds: 2 });
+    await updateMany(c);
   } catch (e) {
     console.log(e);
   } finally {
