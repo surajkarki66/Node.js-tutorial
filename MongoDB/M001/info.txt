@@ -1,0 +1,10 @@
+MongoDb shell is designed to support javascript. So to run js file in MongoDb shell
+CMD: load("nameofjsfile")
+
+To connect mongodb shell with mongodb cluster.
+
+CMD: mongo "mongodb+srv://cluster0.ee1zn.mongodb.net/<dbname>" --username <username> --password <password>"
+
+To find the value inside the subdocument.
+CMD: db.collection_name.find({"object.properyOfObject": value})
+eg:db.movieDetails.find({"imdb.rating": 8})
